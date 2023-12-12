@@ -16,15 +16,23 @@ const props = defineProps({
     <div class="movie-container">
         <h2>{{ props.movie.title }}</h2>
         <img :src="`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`" :alt="props.movie.title" />
+        </div>
         <div class="container">
         <p class="overview">{{ props.movie.overview }}</p>
         <p>{{ props.movie.release_date }}</p>
         <p>{{ props.movie.vote_average }}</p>
     </div>
-    </div>
+    
 </template>
 
 <style scoped>
+
+h2{
+    color: white;
+    background-color: black;
+    padding: 1%;
+
+}
 .movie-container {
     width: 100%;
     display: flex;
@@ -35,9 +43,9 @@ const props = defineProps({
 .container {
     width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     row-gap: 1rem;
+flex-direction: column;
 
 }
 

@@ -42,11 +42,9 @@ const listMovies = async (genreId) => {
 
   <main>
     <div v-if="showMovie">
-      <button class="bg-blue-400" @click="showMovie = false">Voltaro</button>
     <MovieComp  :movie="currentMovie" @close="showMovie = false" />
   </div>
     <div v-else>
-      <h1>Gêneros de filmes</h1>
       <ul class="genre-list">
         <li
           v-for="genre in genreStore.genres"
@@ -86,7 +84,7 @@ const listMovies = async (genreId) => {
 }
 
 .genre-item {
-  background-color: #387250;
+  background-color: red;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   color: #000000;
@@ -94,7 +92,8 @@ const listMovies = async (genreId) => {
 
 .genre-item:hover {
   cursor: pointer;
-  background-color: #4e9e5f;
+  background-color:black;
+  color: red;
   box-shadow: 0 0 0.5rem #387250;
 }
 

@@ -34,11 +34,6 @@ const router = createRouter({
     name: 'moviesView',
     component: () => import('../views/MoviesView.vue')
   },
-  {
-    path: '/brasil',
-    name: 'brasilView',
-    component: () => import('../views/BrasilMoviesView.vue')
-  }
 
   ]
 })

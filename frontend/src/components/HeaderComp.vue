@@ -38,9 +38,7 @@ import { RouterView } from 'vue-router';
           <RouterLink :to="{ name: 'moviesView' }">
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">Movies</li>
           </RouterLink>
-          <RouterLink :to="{ name: 'aboutView' }">
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">About</li>
-          </RouterLink>
+        
         </ul>
       </nav>
     </div>

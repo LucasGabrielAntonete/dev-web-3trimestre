@@ -25,7 +25,7 @@ onMounted(async () => {
 })
 
 const listMovies = async (genreId) => {
-genreStore.setCurrentGenreId(genreId);
+  genreStore.setCurrentGenreId(genreId)
   isLoading.value = true
   const response = await api.get('discover/movie', {
     params: {
@@ -41,40 +41,41 @@ genreStore.setCurrentGenreId(genreId);
   <HeaderComp></HeaderComp>
 
   <main>
-  <h1>Gêneros de filmes</h1>
-  <ul class="genre-list">
-    <li
-      v-for="genre in genreStore.genres"
-      :key="genre.id"
-      @click="listMovies(genre.id)"
-      class="genre-item"
-      :class="{ active: genre.id === genreStore.currentGenreId }"
-    >
-      {{ genre.name }}
-  
-    </li>
-    
-</ul>
+    <div v-if="showMovie">
+      <button class="bg-blue-400" @click="showMovie = false">Voltaro</button>
+    <MovieComp  :movie="currentMovie" @close="showMovie = false" />
+  </div>
+    <div v-else>
+      <h1>Gêneros de filmes</h1>
+      <ul class="genre-list">
+        <li
+          v-for="genre in genreStore.genres"
+          :key="genre.id"
+          @click="listMovies(genre.id)"
+          class="genre-item"
+          :class="{ active: genre.id === genreStore.currentGenreId }"
+        >
+          {{ genre.name }}
+        </li>
+      </ul>
 
-  <loading v-model:active="isLoading" is-full-page />
+      <loading v-model:active="isLoading" is-full-page />
 
-  <div class="flex flex-wrap justify-between gap-8 ">
-    <div v-for="movie in movies" :key="movie.id" class="movie-card" >
-      <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title" />
-      <div class="movie-details">
-        <p class="movie-title">{{ movie.title }}</p>
-        <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
-        <p class="movie-genres">{{ movie.genre_ids }}</p>
+      <div class="flex flex-wrap justify-between gap-8">
+        <div v-for="movie in movies" :key="movie.id" class="movie-card" @click="loadMovie(movie)">
+          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title" />
+          <div class="movie-details">
+            <p class="movie-title">{{ movie.title }}</p>
+            <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
+            <p class="movie-genres">{{ movie.genre_ids }}</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
 </template>
 <style scoped>
 
-main{
-background-color: #000;
-}
 .genre-list {
   display: flex;
   justify-content: center;
@@ -82,15 +83,13 @@ background-color: #000;
   gap: 2rem;
   list-style: none;
   margin-bottom: 2rem;
-  
 }
 
 .genre-item {
   background-color: #387250;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
-  color: #fff;
-  
+  color: #000000;
 }
 
 .genre-item:hover {
@@ -99,8 +98,6 @@ background-color: #000;
   box-shadow: 0 0 0.5rem #387250;
 }
 
-
-
 .movie-card {
   width: 15rem;
   height: 30rem;
@@ -108,15 +105,13 @@ background-color: #000;
   font: 1.5rem sans-serif;
   cursor: pointer;
   will-change: transform;
-  color: white;
-  
-} 
+  color: rgb(0, 0, 0);
+}
 
-.movie-card:hover{
-    -xpedu-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
-    
+.movie-card:hover {
+  -xpedu-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .movie-card img {

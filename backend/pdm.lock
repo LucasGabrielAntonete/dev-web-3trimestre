@@ -3,16 +3,18 @@
 
 [metadata]
 groups = ["default"]
-cross_platform = true
-static_urls = false
-lock_version = "4.3"
-content_hash = "sha256:047a767b1b5c0a7b2348eaa25a5a7db2af0c7dae8dbbefc89e08d026b62b32b5"
+strategy = ["cross_platform"]
+lock_version = "4.4"
+content_hash = "sha256:6fc366fefc9d3a03f5655f97290152a6912ea12ee82d7a7e4e586c73d7872009"
 
 [[package]]
 name = "asgiref"
 version = "3.7.2"
 requires_python = ">=3.7"
 summary = "ASGI specs, helper code, and adapters"
+dependencies = [
+    "typing-extensions>=4; python_version < \"3.11\"",
+]
 files = [
     {file = "asgiref-3.7.2-py3-none-any.whl", hash = "sha256:89b2ef2247e3b562a16eef663bc0e2e703ec6468e2fa8a5cd61cd449786d4f6e"},
     {file = "asgiref-3.7.2.tar.gz", hash = "sha256:9e0ce3aa93a819ba5b45120216b23878cf6e8525eb3848653452b4192b92afed"},
@@ -271,6 +273,16 @@ summary = "A non-validating SQL parser."
 files = [
     {file = "sqlparse-0.4.4-py3-none-any.whl", hash = "sha256:5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3"},
     {file = "sqlparse-0.4.4.tar.gz", hash = "sha256:d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c"},
+]
+
+[[package]]
+name = "typing-extensions"
+version = "4.9.0"
+requires_python = ">=3.8"
+summary = "Backported and Experimental Type Hints for Python 3.8+"
+files = [
+    {file = "typing_extensions-4.9.0-py3-none-any.whl", hash = "sha256:af72aea155e91adfc61c3ae9e0e342dbc0cba726d6cba4b6c72c1f34e47291cd"},
+    {file = "typing_extensions-4.9.0.tar.gz", hash = "sha256:23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783"},
 ]
 
 [[package]]

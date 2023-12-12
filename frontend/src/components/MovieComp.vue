@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
-
+import HeaderComp from '@/components/HeaderComp.vue'
 const props = defineProps({
     movie: {
         type: Object,
@@ -11,13 +11,16 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="movie-container"
-        :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${props.movie.backdrop_path})` }">
+
+
+    <div class="movie-container">
         <h2>{{ props.movie.title }}</h2>
         <img :src="`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`" :alt="props.movie.title" />
+        <div class="container">
         <p class="overview">{{ props.movie.overview }}</p>
         <p>{{ props.movie.release_date }}</p>
         <p>{{ props.movie.vote_average }}</p>
+    </div>
     </div>
 </template>
 
@@ -28,6 +31,14 @@ const props = defineProps({
     flex-direction: column;
     align-items: center;
     row-gap: 1rem;
+}
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+
 }
 
 .movie-container {

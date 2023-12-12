@@ -1,13 +1,11 @@
 <script setup></script>
 <template>
-
-<main class="bg-black">
+  <main class="bg-black">
     <div class="m-auto w-1/2 flex flex-col h-screen justify-center items-center gap-6">
       <div class="flex flex-col h-1/2 text-start w-2/3 gap-3">
         <h1 class="text-3xl font-bold text-center text-white">Login</h1>
         <p class="text-lg text-center font-light text-white">
           Esqueceu sua senha? Nos informe seu email para enviarmos o Token
-         
         </p>
         <div class="flex flex-col gap-5">
           <div class="relative flex items-center">
@@ -33,6 +31,5 @@
       </div>
     </div>
   </main>
-
 </template>
 <style scoped></style>

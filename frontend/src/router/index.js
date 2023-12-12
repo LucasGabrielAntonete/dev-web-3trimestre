@@ -20,16 +20,15 @@ const router = createRouter({
       component: () => import('../views/RegistroView.vue')
     },
     {
-    path: '/main',
-    name: 'mainView',
-    component: () => import('../views/MainView.vue')
-  },
-  {
-    path: '/movies',
-    name: 'moviesView',
-    component: () => import('../views/MoviesView.vue')
-  },
-
+      path: '/main',
+      name: 'mainView',
+      component: () => import('../views/MainView.vue')
+    },
+    {
+      path: '/movies',
+      name: 'moviesView',
+      component: () => import('../views/MoviesView.vue')
+    }
   ]
 })
 

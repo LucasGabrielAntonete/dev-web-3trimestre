@@ -1,20 +1,23 @@
 <script setup>
-import { useRouter } from 'vue-router';
-//import { useUserStore } from '../stores/user'
-import { ref } from 'vue';
-//const email = ref(null)
-//const password = ref(null)
-//const router = useRouter();
-//const userStore = useUserStore()
-//async function loginUser() {
- //   try {
-  //      await userStore.login(email.value, password.value);
-   //     router.push('/dashboard');
-   // } catch (error) {
-   //     console.log('error', error);
-   // }
-// }
-
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user'
+import { ref } from 'vue'
+const email = ref(null)
+const password = ref(null)
+const router = useRouter()
+const userStore = useUserStore()
+async function loginUser() {
+  try {
+    const user = {
+      email: email.value,
+      password: password.value
+    }
+    await userStore.login(user)
+    router.push('/movies')
+  } catch (error) {
+    console.log('error', error)
+  }
+}
 </script>
 
 <template>
@@ -31,6 +34,7 @@ import { ref } from 'vue';
         <div class="flex flex-col gap-5">
           <div class="relative flex items-center">
             <input
+              v-model="email"
               type="email"
               placeholder="Email"
               class="bg-transparent p-4 border-2 rounded-2xl border-white outline-none w-full pl-12"
@@ -39,7 +43,7 @@ import { ref } from 'vue';
           <div class="relative flex items-center">
             <div class="w-full relative flex items-center">
               <input
-              
+                v-model="password"
                 placeholder="Senha"
                 class="bg-transparent p-4 border-2 rounded-2xl border-white outline-none w-full pl-12"
               />
@@ -49,7 +53,12 @@ import { ref } from 'vue';
         <RouterLink :to="{ name: 'forgotPasswordView' }">
           <p class="text-end text-cyan text-white font-light cursor-pointer">Esqueceu a senha?</p>
         </RouterLink>
-        <button class="bg-green-600 p-4 rounded-2xl text-xl text-white font-black" >Login</button>
+        <button
+          class="bg-green-600 p-4 rounded-2xl text-xl text-white font-black"
+          @click="loginUser"
+        >
+          Login
+        </button>
       </div>
     </div>
   </main>

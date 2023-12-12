@@ -36,26 +36,34 @@ const listMovies = async (genreId) => {
   movies.value = response.data.results
   isLoading.value = false
 }
+
+const show = ref(false)
 </script>
 <template>
   <HeaderComp></HeaderComp>
 
   <main>
-    <div v-if="showMovie">
-    <MovieComp  :movie="currentMovie" @close="showMovie = false" />
-  </div>
+    <div class="btnsShowMovies" v-if="showMovie">
+      <button class="btn btn-danger" @click="showMovie = false">Sair da pagina</button>
+      <MovieComp :movie="currentMovie" @close="showMovie = false" />
+    </div>
     <div v-else>
-      <ul class="genre-list">
-        <li
-          v-for="genre in genreStore.genres"
-          :key="genre.id"
-          @click="listMovies(genre.id)"
-          class="genre-item"
-          :class="{ active: genre.id === genreStore.currentGenreId }"
-        >
-          {{ genre.name }}
-        </li>
-      </ul>
+      <div class="buttonMostrar">
+      <button class="btn btn-primary" @click="show = !show">Mostrar Categorias</button>
+    </div>
+      <Transition name="slide-fade">
+        <ul class="genre-list" v-if="show">
+          <li
+            v-for="genre in genreStore.genres"
+            :key="genre.id"
+            @click="listMovies(genre.id)"
+            class="genre-item"
+            :class="{ active: genre.id === genreStore.currentGenreId }"
+          >
+            {{ genre.name }}
+          </li>
+        </ul>
+      </Transition>
 
       <loading v-model:active="isLoading" is-full-page />
 
@@ -65,7 +73,16 @@ const listMovies = async (genreId) => {
           <div class="movie-details">
             <p class="movie-title">{{ movie.title }}</p>
             <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
-            <p class="movie-genres">{{ movie.genre_ids }}</p>
+            <p class="movie-genres">
+              <span
+                v-for="genre_id in movie.genre_ids"
+                :key="genre_id"
+                @click="listMovies(genre_id)"
+                :class="{ active: genre_id === genreStore.currentGenreId }"
+              >
+                {{ genreStore.getGenreName(genre_id) }}
+              </span>
+            </p>
           </div>
         </div>
       </div>
@@ -73,7 +90,32 @@ const listMovies = async (genreId) => {
   </main>
 </template>
 <style scoped>
+.btnsShowMovies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(36, 36, 36);
+  row-gap: 1rem;
+}
 
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.buttonMostrar{
+  display: flex;
+  justify-content: center;
+}
 .genre-list {
   display: flex;
   justify-content: center;
@@ -92,9 +134,9 @@ const listMovies = async (genreId) => {
 
 .genre-item:hover {
   cursor: pointer;
-  background-color:black;
+  background-color: black;
   color: red;
-  box-shadow: 0 0 0.5rem #387250;
+  box-shadow: 0 0 0.5rem red;
 }
 
 .movie-card {
@@ -105,6 +147,8 @@ const listMovies = async (genreId) => {
   cursor: pointer;
   will-change: transform;
   color: rgb(0, 0, 0);
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .movie-card:hover {
@@ -125,20 +169,43 @@ const listMovies = async (genreId) => {
 }
 
 .movie-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
-  line-height: 1.3rem;
-  height: 3.2rem;
+  line-height: 1rem;
+  height: 3rem;
+}
+.movie-genres span {
+  display: flex;
+  background-color: brown;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.movie-genres span:hover {
+  cursor: pointer;
+  background-color: red;
+  box-shadow: 0 0 0.5rem red;
 }
 
 .active {
-  background-color: #67b086;
+  background-color: red;
   font-weight: bolder;
 }
 
 .movie-genres span.active {
-  background-color: #abc322;
+  background-color: red;
   color: #000;
   font-weight: bolder;
 }
+.movie-release-date{
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 1rem;
+  
+}
+
+
 </style>
